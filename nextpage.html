@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentines</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; 
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #BA7373;
+            padding: 20px; 
+            overflow-y: auto; 
+        }
+
+        img {
+            max-width: 100%;
+            height: auto; 
+            margin-bottom: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        .typing-text {
+            font-size: 20px; 
+            overflow: hidden;
+            max-width: 100%;
+            white-space: normal; 
+            word-break: break-word; 
+            text-align: center; 
+        }
+
+        @media (max-width: 600px) {
+            .typing-text {
+                font-size: 18px; 
+            }
+        }
+
+        audio {
+            display: none; 
+        }
+
+        #whatsapp-button {
+            display: none; 
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #whatsapp-button:hover {
+            background-color: #20b958;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="typing-text" id="typing"></div>
+
+    <audio id="background-music" autoplay loop>
+        <source src="background.mp3" type="audio/mpeg"> 
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="whatsapp-button" onclick="location.href='firstpage.html'">Continue</button>
+
+    <script>
+        const texts = [
+    "Happy Valentine's Day Love!",
+    "Valentine’s Day may be just one day,",
+    "but my love for you remains ",
+    "constant every day of the year.",
+    "Happy Valentine's Day My Love"
+];
+
+let index = 0;
+const typingElement = document.getElementById('typing');
+const typingSpeed = 200;
+const whatsappButton = document.getElementById('whatsapp-button');
+
+function typeText() {
+    if (index < texts.length) {
+        const paragraph = document.createElement('p'); 
+        paragraph.textContent = ''; 
+        typingElement.appendChild(paragraph); 
+        let charIndex = 0;
+
+        function typeChar() {
+            if (charIndex < texts[index].length) {
+                paragraph.textContent += texts[index].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, typingSpeed);
+            } else {
+                index++; 
+                if (index < texts.length) {
+                    setTimeout(typeText, 1000); 
+                } else {
+                    // Tampilkan tombol WhatsApp setelah semua teks selesai diketik
+                    whatsappButton.style.display = 'block';
+                }
+            }
+        }
+
+        typeChar();
+    }
+}
+
+typeText();
+    </script>
+
+</body>
+</html>
